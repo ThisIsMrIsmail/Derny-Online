@@ -5,4 +5,4 @@ A system that manages
   - Employees
   - Payroll
   - Leaves
-  - and a lot more
+  - and more

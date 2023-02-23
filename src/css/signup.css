@@ -12,6 +12,7 @@ body {
 #togglePassword1,
 #togglePassword2 {
   position: absolute;
+  font-size: 16px;
   top: 36%;
   right: 10%;
   cursor: pointer;

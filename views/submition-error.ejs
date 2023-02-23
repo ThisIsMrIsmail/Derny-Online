@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error | Derny Online</title>
+  <%- include ("partials/links") -%>
+
+  <!-- Custom styles for this template -->
+
+<%- include ("partials/favicons") -%>
+
+</head>
+
+<body class="bg-light">
+
+<div class="container-fluid">
+  <div class="row">
+
+<%- include ("partials/top-bar") -%>
+<%- include ("partials/sidebar") -%>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h3 text-danger">Submition Error</h1>
+      </div>
+
+      <div id="submitionError">
+        <h5>
+          The provided
+          <span class="text-danger">Email</span> or
+          <span class="text-danger">Passport ID</span> or
+          <span class="text-danger">Identity ID</span>
+          already exist, you have to enter UNIQUE values of all of these.
+        </h5>
+      </div>
+
+    </main>
+
+  </div>
+</div>
+
+<%- include ("partials/footer") -%>
+
+<%- include ("partials/scripts") -%>
+
+<script>
+  $('button[data-bs-target="#employees-collapse"]').attr("aria-expanded", true);
+  setTimeout(()=> {
+    $("#employees-collapse").addClass("show");
+    $("#employees-collapse #overview-sidebar").css("background-color", "#d2f4ea");
+  }, 200)
+</script>
+
+</body>
+</html>
+
+
+

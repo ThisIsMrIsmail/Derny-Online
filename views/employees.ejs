@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employees | Derny Online</title>
+  <%- include ("partials/links") -%>
+
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="/css/employees.css">
+
+<%- include ("partials/favicons") -%>
+
+</head>
+
+<body class="bg-light">
+
+ <!-- Start of the container -->
+<div class="container-fluid">
+  <div class="row">
+
+<%- include ("partials/top-bar") -%>
+<%- include ("partials/sidebar") -%>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h3">Employees</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+        <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+      </div>
+    </div>
+  </div>
+  
+  <div class="table-responsive-xl shadow rounded p-2">
+    <table class="table table-hover table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Employee ID</th>
+          <th scope="col">Employee full name</th>
+          <th scope="col">Company name</th>
+          <th scope="col">Identity ID</th>
+          <th scope="col">Passport ID</th>
+          <th scope="col">Email</th>
+          <th scope="col">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+        <% records.forEach(e => { %>
+          <tr>
+            <td> <%= e.emp_id %> </td>
+            <!-- use >> target="_blank" rel="noopener noreferrer" to open page in new tab -->
+            <% let name = e.full_name_en %>
+            <td> <a class="link-dark emp-name-profile" href="/employees/<%= e.emp_id %>"><%= e.full_name_en %></a> </td>
+            <td> <%= e.company_name %> </td>
+            <td> <%= e.identity_id %> </td>
+            <td> <%= e.passport_id %> </td>
+            <td> <%= e.email %> </td>
+            <td>
+              <% if (e.emp_status === 0) { %>
+                <div class="container text-center text-white bg-danger">Inactive</div>
+              <% } else if (e.emp_status === 1) { %>
+                <div class="container text-center text-white" style="background-color: #00d68f;">Active</div> 
+              <% } else if (e.emp_status === 2) { %>
+                <div class="container text-center text-dark bg-warning">Vacation</div>
+              <% } else { %>
+                <div class="container text-center text-white bg-dark">Error</div> 
+              <% } %>
+            </td>
+          </tr> 
+        <% }) %>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</main>
+
+  </div>
+</div>
+
+<!-- End of the container -->
+
+<%- include ("partials/footer") -%>
+
+<%- include ("partials/scripts") -%>
+
+<script src="/js/employees.js"></script>
+ 
+</body>
+</html>

@@ -1,0 +1,364 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap');
+
+:root {
+  --grey-color: #b9b9b9;
+}
+
+body {
+  margin: 25px 25px;
+  font-family:'Times New Roman', Times, serif;
+  color: black;
+  margin-bottom:60px;
+}
+
+button {
+  background-color: #b30b00;
+  color: #EEEEEE;
+  padding: 4px 10px;
+  border: 0px;
+  border-radius: 5px;
+  transition: box-shadow 0.3s;
+}
+button:hover {
+  box-shadow: 0px 2px #a40b00;
+}
+
+#today-date {
+  margin-bottom: 15px;
+  font-family: Times, serif;
+  font-size: 17px;
+  font-weight: 550;
+}
+#current-day, #current-time {
+  margin: 0px auto;
+}
+#barcode-canvas {
+  width: 210px;
+  height: 70px;
+}
+
+
+.personal-image {
+  width: 170px;
+  height: 190px;
+  padding: 3px;
+  border: 5px black double;
+  border-radius: 5px;
+}
+.logo-div {
+  width: 400px;
+  height: 190px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+.logo-image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+
+.english-title {
+  margin-top: 10px;
+  width: 40%;
+  background-color: var(--grey-color);
+}
+.english-title h3 {
+  font-size: 19px;
+  font-weight: 900;
+  padding: 6px 0;
+}
+.arabic-title {
+  margin-top: 10px;
+  margin-top: 5px;
+  width: 25%;
+  background-color: var(--grey-color);
+}
+.arabic-title h3 {
+  font-family: 'Noto Naskh Arabic', serif;
+  font-size: 24px;
+  font-weight: bolder;
+  padding: 2px 0;
+}
+
+
+.date, .emp, .emp-table {
+  margin: auto;
+}
+.date {
+  margin-bottom: 3px;
+  font-size: 18px;
+  font-weight: 900;
+  height: 35px;
+}
+.date-title-1 {
+  margin-right: auto;
+  height: 35px;
+  padding: 5px;
+  background-color: var(--grey-color);
+}
+.date-title-2 {
+  margin-left: auto;
+  height: 35px;
+  padding: 5px;
+  background-color: var(--grey-color);
+}
+#en-date, #ar-date {
+  height: 35px;
+  padding: 5px;
+}
+
+
+.emp {
+  margin-bottom: 3px;
+  font-size: 18px;
+  font-weight: 900;
+}
+.emp-word-1 {
+  margin-right: auto;
+  height: 35px;
+  padding: 5px;
+  background-color: var(--grey-color);
+}
+.emp-word-2 {
+  margin-left: auto;
+  height: 35px;
+  padding: 5px;
+  background-color: var(--grey-color);
+}
+
+
+.emp-table {
+  border: 3px black solid;
+}
+.table-title-ltr {
+  font-size: 18px;
+  font-weight: 900;
+  padding: 5px;
+  height: 40px;
+  background-color: var(--grey-color);
+  border-right-color: black;
+  border-top: 0;
+  border-right: 2px;
+  border-bottom: 0;
+  border-left: 0;
+  border-style: solid;
+}
+.table-title-rtl {
+  font-size: 18px;
+  font-weight: 900;
+  padding: 5px;
+  height: 40px;
+  background-color: var(--grey-color);
+  border-left-color: black;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 2px;
+  border-style: solid;
+}
+.table-word {
+  font-size: 18px;
+  font-weight: 900;
+  padding: 5px;
+  height: 40px;
+}
+
+
+.address-table-title-ltr {
+  font-size: 15px;
+  font-weight: 900;
+  padding: 5px;
+  height: 40px;
+  background-color: var(--grey-color);
+  border-right-color: black;
+  border-top: 0;
+  border-right: 2px;
+  border-bottom: 0;
+  border-left: 0;
+  border-style: solid;
+}
+.address-table-title-rtl {
+  font-size: 15px;
+  font-weight: 900;
+  padding: 5px;
+  height: 40px;
+  background-color: var(--grey-color);
+  border-left-color: black;
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-left: 2px;
+  border-style: solid;
+}
+.address-table-word {
+  font-size: 15px;
+  font-weight: 900;
+  padding: 5px;
+  height: 40px;
+}
+
+
+.salary {
+  margin: 0;
+}
+.en-salary, .ar-salary {
+  border: 3px black solid;
+  margin-bottom: 3px;
+  color: black;
+}
+.basic-salary, .total-salary {
+  margin: 0;
+  border: 1px black solid;
+  vertical-align: middle;
+  font-size: 15px;
+  font-weight: 900;
+}
+.allowances {
+  margin: 0;
+  border: 1px black solid;
+  font-size: 17px;
+  font-weight: 900;
+}
+.all-title td {
+  margin: 0;
+  border: 1px black solid;
+  font-size: 14px;
+  font-weight: 900;
+}
+.all-values {
+  height: 40px;
+}
+.all-values td {
+  border: 1px black solid;
+  margin: 0;
+  font-size: 14px;
+  font-weight: 900;
+}
+.en-salary tr th:first-of-type {
+  background-color: var(--grey-color) !important;
+}
+.en-salary tr th, .ar-salary tr th {
+  background-color: var(--grey-color) !important;
+}
+
+.en-date-table, .ar-date-table {
+  border: 3px black solid;
+  margin-bottom: 5px;
+  color: black;
+}
+.date-table-title {
+  border-right: 1px black solid;
+  border-left: 1px black solid;
+  font-size: 18px;
+  font-weight: 900;
+  vertical-align: middle;
+}
+.en-date-table tr .date-table-title:first-of-type,
+.ar-date-table tr .date-table-title:first-of-type {
+  background-color: var(--grey-color) !important;
+}
+.en-date-table tr .date-table-title,
+.en-date-table tr .date-table-title-value,
+.ar-date-table tr .date-table-title,
+.ar-date-table tr .date-table-title-value {
+  background-color: var(--grey-color) !important;
+}
+.date-table-value, .date-table-title-value {
+  font-size: 15px;
+  font-weight: 900;
+  vertical-align: middle;
+}
+.en-date-table tr .dateOfJoining:first-of-type,
+.ar-date-table tr .dateOfJoining:first-of-type {
+  background-color: transparent !important;
+}
+.en-date-table tr .en-dateOfJoining {
+  background-color: transparent !important;
+  border: 1px black solid;
+  border-bottom: 3px black solid;
+}
+.ar-date-table tr .ar-dateOfJoining {
+  background-color: transparent !important;
+  width: 5%;
+  border: 1px black solid;
+  border-bottom: 3px black solid;
+}
+
+
+img[alt="Attached"] {
+  margin-top: 5px;
+  width: 18px;
+  height: 18px;
+  border: 2px #9b9b9b solid;
+  background-color: var(--grey-color);
+}
+.attach-title {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-left: 1px;
+  padding-right: 1px;
+  height: 20px;
+  font-size: 15px;
+  font-weight: 900;
+}
+.attach-title p {
+  margin: 0;
+}
+.attach-title p span {
+  padding: 1px 4px;
+  margin: 0px 3px;
+  width: 20px;
+  height: 20px;
+  border: 2px #9b9b9b solid;
+  background-color: var(--grey-color);
+}
+
+
+.promise {
+  margin: auto;
+  margin-top: 5px;
+  border: 3px black solid;
+  background-color: var(--grey-color);
+  font-size: 14px;
+  font-weight: 900;
+}
+
+
+.signature {
+  margin: auto;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 900;
+}
+.signature-date {
+  margin: auto;
+  margin-top: 10px;
+  font-size: 16px;
+  font-weight: 900;
+}
+
+
+.approve {
+  margin: 0;
+  margin-top: 0px;
+  font-size: 16px;
+  font-weight: 900;
+}
+.approve-left {
+  margin: auto;
+  margin-left: 0;
+  margin-top: 15px;
+  background-color: var(--grey-color);
+}
+.approve-right {
+  margin: auto;
+  margin-right: 0;
+  margin-top: 15px;
+  background-color: var(--grey-color);
+}
+.dots {
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}

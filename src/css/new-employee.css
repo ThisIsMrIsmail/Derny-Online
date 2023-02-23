@@ -1,0 +1,29 @@
+
+body {
+  font-size: .875rem;
+}
+
+hr {
+  margin-bottom: 2rem;
+}
+
+.container {
+  max-width: 960px;
+}
+
+.form-control-dark {
+  border-color: var(--bs-gray);
+}
+.form-control-dark:focus {
+  border-color: #fff;
+  box-shadow: 0 0 0 .25rem rgba(255, 255, 255, .25);
+}
+.mandatory {
+  padding: 0px;
+  margin: 0px 2px;
+  font-size: 15px;
+  color: red;
+}
+.dropdown-toggle {
+  outline: 0;
+}

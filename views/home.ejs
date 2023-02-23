@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome | Derny Online</title>
+  <%- include ("partials/links") -%>
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="/css/home.css">
+    
+  <%- include ("partials/favicons") -%>
+</head>
+
+<body class="d-flex text-center" style="background-color: white;">
+
+<div class="d-flex w-100 h-100 p-0 mx-auto flex-column">
+  <div class="my-5">
+    <h1 class="h1 fw-bold">Welcome to Derny Online</h1>
+  </div>
+  <header class="p-2 sticky-top" style="background-color: #222831;">
+    <div class="container">
+      <h3 class="float-md-start mb-0 text-white"><a class="text-white" style="text-decoration: none;" href="/">Derny Online</a></h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="/">Home</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+        <a class="nav-link fw-bold py-1 px-0" href="/login">Login</a>
+        <a class="nav-link fw-bold py-1 px-0" href="/signup">Sign up</a>
+      </nav>
+    </div>
+  </header>
+  
+  <div class="my-auto container">
+    <div class="my-5">
+      <img class="w-75" src="/images/b3.jpg" alt="background image here">
+      <h4 class="fw-bold mt-3">Finsih tasks 3x faster</h4>
+    </div>
+    <div class="row my-5">
+      <div class="col-lg-6 col-md-6 d-flex">
+        <img class="my-auto w-100" src="/images/b4.jpg" alt="background image here">
+      </div>
+      <div class="col-lg-6 col-md-6 d-flex">
+        <div class="my-auto">
+          <p class="lead">Manage your HR, Employees, Payroll, Leaves, Vacations and more. Sign up and Login now for FREE.</p> 
+          <div class="my-4">
+            <a class="btn btn-lg fw-bold text-white border-dark bg-dark" href="/login">Get Started</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="mt-auto pt-3 text-white-50 text-center text-small" style="background-color: #222831;">
+    <div class="d-flex container">
+      <div class="me-auto">
+        <p>© 2022 - <span id="current-year"></span> | Developed By
+          <a class="text-white-50" href="https://linkedin.com/in/ThisIsMrIsmail"
+          target="_blank" rel="noopener noreferrer">Ismail Sherif</a>
+        </p>
+        <script>
+          let year = new Date();
+          document.querySelector("#current-year").innerHTML = year.getFullYear();
+        </script>
+      </div>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a class="text-white-50" href="#">Privacy</a></li>
+        <li class="list-inline-item"><a class="text-white-50" href="#">Terms</a></li>
+        <li class="list-inline-item"><a class="text-white-50" href="#">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+
+  <%- include ("partials/scripts") -%>
+
+</body>
+</html>

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Information | Derny Online</title>
+  <%- include ("partials/links") -%>
+  
+  <!-- Custom styles for this template -->
+  <link rel="stylesheet" href="/css/emp-info.css">
+
+<%- include ("partials/favicons") -%>
+
+</head>
+
+<body class="bg-light">
+
+  
+  <!-- Start of the container -->
+<div class="container-fluid">
+  <div class="row">
+    
+    <%- include ("partials/top-bar") -%>
+    <%- include ("partials/sidebar") -%>
+
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+<form action="/employees/<%= emp.emp_id %>" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <!-- put here the id of the Employee -->
+    <h2 class="h3">Employee information
+      <!-- put here the ejs variable of the status color -->
+      <% if (emp.emp_status == 0) { %>
+        <span class="bg-danger text-white" title="Employee ID" id="emp-id">#<%= emp.emp_id %></span>
+      <% } else if (emp.emp_status == 1) { %>
+        <span class="text-white" title="Employee ID" id="emp-id" style="background-color: #00d68f;">#<%= emp.emp_id %></span>
+      <% } else if (emp.emp_status == 2) { %>
+        <span class="bg-warning text-white" title="Employee ID" id="emp-id">#<%= emp.emp_id %></span>
+      <% } else { %>
+        <span class="bg-dark text-white" title="Employee ID" id="emp-id">#<%= emp.emp_id %></span>
+      <% } %>
+    </h2>
+    <!-- <p class="text-muted" style="margin-left: 0;">Joining Date:&nbsp; 
+      <span id="dateOfJoining"> <%= dateOfJoining %> </span>
+    </p> -->
+    <div class="btn-toolbar mb-2 mb-md-0">
+      <div class="btn-group me-2">
+        <button id="edit-info" type="button" class="btn btn-sm btn-outline-primary px-2" style="font-size: 16px;">Edit info</button>
+        <button id="save-info" type="submit" class="btn btn-sm btn-outline-success px-2" style="font-size: 16px;">Save info</button>
+        <button id="cancel-info" type="button" class="btn btn-sm btn-outline-secondary px-2" style="font-size: 16px;">Cancel</button>
+        <div class="dropdown-attach">
+          <button class="dropbtn-attach px-2">Attachments</button>
+          <div class="dropdown-content-attach">
+            <!-- iqama/id pdf -->
+            <a href="/uploads/emp-files/<%= emp.emp_id %>/iqama_id_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+              <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Iqama/ID</a>
+            <!-- passport pdf -->
+            <a href="/uploads/emp-files/<%= emp.emp_id %>/passport_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+              <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Passport</a>
+            <!-- social insurance pdf -->
+            <a href="/uploads/emp-files/<%= emp.emp_id %>/social_insurance_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+              <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Social Insurance</a>
+            <!-- certificates pdf -->
+            <a href="/uploads/emp-files/<%= emp.emp_id %>/certificates_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+              <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Certificates</a>
+            <a href="/uploads/emp-files/<%= emp.emp_id %>/driving_license_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+              <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Driving license</a>
+            <a href="/uploads/emp-files/<%= emp.emp_id %>/others_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+              <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Others</a>      
+          </div>
+        </div>
+        <!-- <a id="export" class="btn btn-sm btn-outline-danger" href="/employees/<%= emp.emp_id %>/export-pdf" target="_blank" rel="noopener noreferrer">Export PDF</a> -->
+        <div class="dropdown-export">
+          <button class="dropbtn-export px-2">Export</button>
+          <div class="dropdown-content-export text-center">
+            <!-- export pdf -->
+            <a href="/employees/<%= emp.emp_id %>/export-pdf" target="_blank" rel="noopener noreferrer">
+                <i class="text-center bi bi-file-pdf-fill" style="color: #b30b00; font-size: 20px;"></i>
+            </a>
+            <!-- export excel -->
+            <a href="/employees/<%= emp.emp_id %>/export-pdf" target="_blank" rel="noopener noreferrer" aria-disabled="true">
+                <i class="text-center bi bi-file-earmark-excel-fill" style="color: #0caf0f; font-size: 20px;"></i>
+            </a>   
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="center rounded shadow">
+    <div class="container pt-4 pb-4 mb-5">
+      <div class="row">
+        <div class="col-lg-3">
+          <!-- put the renamed image by Employee id here -->
+          <img id="emp-image" src='/uploads/emp-files/<%= emp.emp_id %>/personal_image_<%= emp.emp_id %>.jpg'
+            class="img-thumbnail rounded  mx-auto d-block"
+            alt="&nbsp; Employee personal image &nbsp;"
+          >
+          <div class="mt-1 m-auto" id="status-div" name="status-div">
+            <select class="edit-input form-select form-select-sm" id="status" name="status" required>
+              <option class="text-white" id="active" name="active" value="1" style="background-color: #00d68f;">Active</option>
+              <option class="bg-danger text-white" id="not active" name="not active" value="0">Inactive</option>
+              <option class="bg-warning" id="vacation" name="vacation" value="2">Vacation</option>
+            </select>
+            <% if (emp.emp_status == 0) { %>
+              <script> document.querySelector('#status option[value="0"]').selected = true; </script>
+            <% } else if (emp.emp_status == 1) {%>
+              <script> document.querySelector('#status option[value="1"]').selected = true; </script>
+            <% } else if (emp.emp_status == 2) {%>
+              <script> document.querySelector('#status option[value="2"]').selected = true; </script>
+            <% } %>
+          </div>
+        </div>
+        <div class="col-lg-9 row container">
+          <div class="mt-2 col-lg-5 col-md-6 col-sm-6">
+            <p>Full name</p>
+            <h6><%= emp.full_name_en %></h6>
+            <input type="text" class="edit-input form-control" id="fullName" name="fullName" value="<%= emp.full_name_en %>" minlength="15" maxlength="50" required>
+          </div>
+          <div class="mt-2 col-lg-4 col-md-6 col-sm-6">
+            <p>Company name</p>
+            <h6><%= emp.company_name %></h6>
+            <select class="edit-input form-select" id="companyName" name="companyName" required>
+              <option value="<%= emp.company_name %>"><%= emp.company_name %></option>
+            </select>
+          </div>
+          <div class="mt-2 col-lg-3 col-md-6 col-sm-6">
+            <p>Identity ID</p>
+            <h6><%= emp.identity_id %></h6>
+            <input id="oldIdentityId" name="oldIdentityId" class="old-input" type="text" value="<%= emp.identity_id %>">
+            <input id="identityId" name="identityId" class="edit-input form-control" type="text" value="<%= emp.identity_id %>" minlength="10" maxlength="10" required>
+          </div>
+          <div class="mt-3 col-lg-5 col-md-6 col-sm-6">
+            <p>Email</p>
+            <h6><%= emp.email %></h6>
+            <input id="oldEmail" name="oldEmail" class="old-input" type="text" value="<%= emp.email %>">
+            <input id="email" name="email" class="edit-input form-control" type="text" value="<%= emp.email %>" minlength="15" maxlength="60" required>
+          </div>
+          <div class="mt-3 col-lg-4 col-md-6 col-sm-6">
+            <p>Nationality</p>
+            <h6><%= emp.nationality %></h6>
+            <select class="edit-input form-select" id="nationality" name="nationality" required>
+              <option value="<%= emp.nationality %>"><%= emp.nationality %></option>
+            </select>
+          </div>
+          <div class="mt-3 col-lg-3 col-md-6 col-sm-6">
+            <p>Passport ID</p>
+            <h6><%= emp.passport_id %></h6>
+            <input id="oldPassportId" name="oldPassportId" class="old-input" type="text" value="<%= emp.passport_id %>">
+            <input id="passportId" name="passportId" class="edit-input form-control" type="text" value="<%= emp.passport_id %>" minlength="9" maxlength="9" required>
+          </div>
+          <div class="mt-3 col-lg-5 col-md-6 col-sm-6">
+            <p>Position</p>
+            <h6><%= emp.position %></h6>
+            <input id="position" name="position" class="edit-input form-control" type="text" value="<%= emp.position %>" required>
+          </div>
+          <div class="mt-3 col-lg-4 col-md-6 col-sm-6">
+            <p>Department</p>
+            <h6><%= emp.department %></h6>
+            <input id="department" name="department" class="edit-input form-control" type="text" value="<%= emp.department %>" required>
+          </div>
+          <div class="mt-3 col-lg-3 col-md-6 col-sm-6">
+            <p>Branch</p>
+            <h6><%= emp.branch %></h6>
+            <select class="edit-input form-select" id="branch" name="branch" required>
+              <option value="<%= emp.branch %>"><%= emp.branch %></option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+    
+      <!-- Changing Attachments -->
+      <div id="attachments-doc" class="container">
+        <hr class="muted">
+        <div class="row mt-3 g-3">
+          <h4 class="mt-0">Attachments</h4>
+          <!-- Personal Image -->
+          <div class="col-lg-6 has-validation">
+            <label for="personalImage" class="form-label">Personal image <span class="text-muted">(max size: 2MB)</span></label>
+            <input type="file" class="form-control" id="personalImage" name="personalImage" accept=".jpeg, .jpg, .png">
+          </div>
+          <!-- Iqama/ID -->
+          <div class="col-lg-6 has-validation">
+            <label for="copyOfIqamaId" class="form-label">Iqama/ID <span class="text-muted">(only:PDFs, max size: 2MB)</span></label>
+            <input type="file" class="form-control" id="IqamaId" name="IqamaId" accept=".pdf">
+          </div>
+          <!-- A copy of the passport (for non-Saudis) -->
+          <div class="col-lg-6 has-validation">
+            <label for="copyOfPassport" class="form-label">Passport <span class="text-muted">(only:PDFs, max size: 2MB)</span></label>
+            <input type="file" class="form-control" id="passport" name="passport" accept=".pdf">
+          </div>
+          <!-- Social Insurance -->
+          <div class="col-lg-6 has-validation">
+            <label for="copyOfsocialInsurance" class="form-label">Social insurance <span class="text-muted">(only:PDFs, max size: 2MB)</span></label>
+            <input type="file" class="form-control" id="socialInsurance" name="socialInsurance" accept=".pdf">
+          </div>
+          <!-- Certificates -->
+          <div class="col-lg-6 has-validation">
+            <label for="certificates" class="form-label">Certificates <span class="text-muted">(only:PDFs, max size: 2MB)</span></label>
+            <input type="file" class="form-control" id="certificates" name="certificates" accept=".pdf">
+          </div>
+          <!-- Driving license -->
+          <div class="col-lg-6 has-validation">
+            <label for="drivingLicense" class="form-label">Driving license <span class="text-muted">(only:PDFs, max size: 2MB)</span></label>
+            <input type="file" class="form-control" id="drivingLicense" name="drivingLicense" accept=".pdf">
+          </div>
+          <!-- Others -->
+          <div class="col-lg-6 has-validation">
+            <label for="others" class="form-label">Others <span class="text-muted">(only:PDFs, max size: 2MB)</span></label>
+            <input type="file" class="form-control" id="others" name="others" accept=".pdf">
+          </div>
+        </div>
+      </div>
+      
+      
+      
+      <div class="table-responsive-xl container">
+        <hr class="muted">
+        <table class="table table-bordered text-center">
+          <!-- add id="fixed-body" -->
+          <tbody id="">
+            <tr>
+              <th scope="col" rowspan="2" style="font-size: 20px; vertical-align: middle;">Basic Salary</th>
+              <th scope="col" colspan="5" style="font-size: 20px;">Allowances</th>
+              <th scope="col" rowspan="2" style="font-size: 20px; vertical-align: middle;">Total Salary</th>
+            </tr>
+            <tr>
+              <td style="font-weight: 700;">Trans. All</td>
+              <td style="font-weight: 700;">Hous. All</td>
+              <td style="font-weight: 700;">Call. All</td>
+              <td style="font-weight: 700;">Work. All</td>
+              <td style="font-weight: 700;">Other. All</td>
+            </tr>
+            <tr>
+              <td><%=  %> 00.00 SAR</td>
+              <td><%=  %> 00.00 SAR</td>
+              <td><%=  %> 00.00 SAR</td>
+              <td><%=  %> 00.00 SAR</td>
+              <td><%=  %> 00.00 SAR</td>
+              <td><%=  %> 00.00 SAR</td>
+              <td><%=  %> 00.00 SAR</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="muted">
+      </div>
+    
+      
+      
+      <!-- current address -->
+      <div class="row container">
+        <h4 class="mt-3 mb-0 mx-0">Current address</h4>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>Country</p>
+          <h6><%= emp.current_country %></h6>
+          <select id="currentCountry" name="currentCountry" class="edit-input form-select" required>
+            <option value="<%= emp.current_country %>"> <%= emp.current_country %> </option>
+            <% countries.forEach( e => { %>
+              <option value="<%=e.name%>"><%=e.name%></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>State</p>
+          <h6><%= emp.current_state %></h6>
+          <select id="currentState" name="currentState" class="edit-input form-select" required>
+            <option value="<%= emp.current_state %>"> <%= emp.current_state %> </option>
+          </select>
+        </div>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>Phone number</p>
+          <h6> <span class="text-muted">+<%= emp.current_country_phone_code %></span> <%= emp.current_phone_1 %></h6>
+          <input id="currentPhone1" name="currentPhone1" class="edit-input form-control" type="text" value="<%= emp.current_phone_1 %>" minlength="8" maxlength="11" required>
+        </div>
+        <div class="mt-1 col-lg-8 col-md-6 col-sm-6">
+          <p>Address</p>
+          <h6><%= emp.current_address %></h6>
+          <input id="currentAddress" name="currentAddress" class="edit-input form-control" type="text" minlength="5" value="<%= emp.current_address %>" required>
+        </div>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>Another Phone number</p>
+          <% if (emp.current_phone_2) { %>
+            <h6> <span class="text-muted">+<%= emp.current_country_phone_code %></span> <%= emp.current_phone_2 %></h6>
+            <input id="currentPhone2" name="currentPhone2" class="edit-input form-control" type="text" value="<%= emp.current_phone_2 %>" minlength="8" maxlength="11">
+          <% } else { %>
+            <h6> <span class="text-muted">+<%= emp.current_country_phone_code %></span> null </h6>
+            <input id="currentPhone2" name="currentPhone2" class="edit-input form-control" type="text" value="" minlength="8" maxlength="11">
+          <% } %>
+        </div>
+        <div>
+          <hr class="muted mt-3 mx-auto w-50">
+        </div>
+      </div>
+    
+      
+
+      <!-- home address -->
+      <div class="row container">
+        <h4 class="mt-3 mb-0">Home country address</h4>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>Country</p>
+          <h6><%= emp.home_country %></h6>
+          <select id="homeCountry" name="homeCountry" class="edit-input form-select" required>
+            <option value="<%= emp.home_country %>"> <%= emp.home_country %> </option>
+            <% countries.forEach( e => { %>
+              <option value="<%=e.name%>"><%=e.name%></option>
+            <% }) %>
+          </select>
+        </div>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>State</p>
+          <h6><%= emp.home_state %></h6>
+          <select id="homeState" name="homeState" class="edit-input form-select" required>
+            <option value="<%= emp.home_state %>"> <%= emp.home_state %> </option>
+          </select>
+        </div>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>Phone number</p>
+          <h6> <span class="text-muted">+<%= emp.home_country_phone_code %></span> <%= emp.home_phone %> </h6>
+          <input id="homePhone" name="homePhone" class="edit-input form-control" type="text" value="<%= emp.home_phone %>" minlength="8" maxlength="11" required>
+        </div>
+        <div class="mt-1 col-lg-8 col-md-6 col-sm-6">
+          <p>Address</p>
+          <h6><%= emp.home_address %></h6>
+          <input id="homeAddress" name="homeAddress" class="edit-input form-control" type="text" minlength="5" value="<%= emp.home_address %>" required>
+        </div>
+        <div class="mt-1 col-lg-4 col-md-6 col-sm-6">
+          <p>Relative Phone number</p>
+          <% if (emp.relative_phone) { %>
+            <h6> <span class="text-muted">+<%= emp.home_country_phone_code %></span> <%= emp.relative_phone %> </h6>
+            <input id="relativePhone" name="relativePhone" class="edit-input form-control" type="text" value="<%= emp.relative_phone %>" minlength="8" maxlength="11">
+          <% } else { %>
+            <h6> <span class="text-muted">+<%= emp.home_country_phone_code %></span> null </h6>
+            <input id="relativePhone" name="relativePhone" class="edit-input form-control" type="text" value="" minlength="8" maxlength="11">
+          <% } %>      
+        </div>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+</main>
+
+  </div>
+</div>
+ <!-- End of the container -->
+ 
+ <%- include ("partials/footer") -%>
+
+<%- include ("partials/scripts") -%>
+
+<script src="/js/emp-info.js"></script>
+ 
+</body>
+</html>

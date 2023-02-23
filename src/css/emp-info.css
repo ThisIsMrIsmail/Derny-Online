@@ -1,0 +1,154 @@
+#emp-image {
+  width: 200px;
+  height: 200px;
+}
+#status-div {
+  width: 150px;
+}
+#status-div select{
+  font-size: 14px;
+  font-weight: 500;
+}
+#emp-id {
+  margin: 0;
+  padding-left: 5px;
+  padding-right: 5px;
+  font-size: 20px;
+  border: 0;
+  border-radius: 5px;
+}
+p {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+.old-input, .edit-input, #edit-body, #save-info, #cancel-info {
+  display: none;
+}
+#attachments-doc {
+  display: none;
+}
+#save-info {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+#month-input {
+  width: 170px;
+  margin-left: 30px;
+}
+
+#month-box {
+  height: 35px;
+  display: flex;
+}
+
+.net-salary {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.basic-salary {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.all-ded {
+  width: fit-content;
+  border-radius: 8px;
+}
+
+
+/* ----------------------------------------------------------------- */
+/* Dropdown Button */
+.dropbtn-attach {
+  background-color: #f8f9fa;
+  color: #0d6efd;
+  padding: 5px;
+  font-size: 16px;
+  border: 0;
+  border-top: 0.5px #0d6efd solid;
+  border-bottom: 0.5px #0d6efd solid;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown-attach {
+  position: relative;
+  display: inline-block;
+}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content-attach {
+  display: none;
+  position: absolute;
+  background-color: #f8f9fa;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border: 0;
+  border-radius: 4px;
+}
+/* Links inside the dropdown */
+.dropdown-content-attach a {
+  color: #333333;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+}
+/* Change color of dropdown links on hover */
+.dropdown-content-attach a:hover {
+  background-color: #ddd;
+  border: 0;
+  border-radius: 4px;
+}
+/* Show the dropdown menu on hover */
+.dropdown-attach:hover .dropdown-content-attach {display: block;}
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown-attach:hover .dropbtn-attach {
+  background-color: #0d6efd;
+  color: #ffffff;
+}
+
+/* ----------------------------------------------------------------- */
+/* Dropdown Button Export */
+.dropbtn-export {
+  background-color: #f8f9fa;
+  color: #0d6efd;
+  padding: 5px;
+  font-size: 16px;
+  border: 0.5px #0d6efd solid;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+/* The container <div> - needed to position the dropdown content */
+.dropdown-export {
+  position: relative;
+  display: inline-block;
+}
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content-export {
+  display: none;
+  position: absolute;
+  background-color: #f8f9fa;
+  min-width: 62px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border: 0;
+  border-radius: 4px;
+}
+/* Links inside the dropdown */
+.dropdown-content-export a {
+  color: #333333;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+}
+/* Change color of dropdown links on hover */
+.dropdown-content-export a:hover {
+  background-color: #ddd;
+  border: 0;
+  border-radius: 4px;
+}
+/* Show the dropdown menu on hover */
+.dropdown-export:hover .dropdown-content-export {display: block;}
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown-export:hover .dropbtn-export {
+  background-color: #0d6efd;
+  color: #ffffff;
+}

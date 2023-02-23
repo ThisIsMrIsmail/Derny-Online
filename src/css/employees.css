@@ -1,0 +1,13 @@
+
+.container {
+  border-radius: 4px;
+  margin: 0;
+  padding: 2px 0px;
+  font-weight: 600;
+  background-color: #28a745;
+}
+
+.emp-name-profile {
+  text-decoration: dotted;
+  font-weight: 500;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" class="h-100">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SignUp | Derny Online</title>
+  <%- include ("partials/links") -%>
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="/css/signup.css">
+  
+  <%- include ("partials/favicons") -%>
+
+</head>
+
+<body class="d-flex h-100" style="background-color: white;">
+    
+<div class="d-flex w-100 h-100 p-0 mx-auto flex-column">
+  <header class="p-2 sticky-top" style="background-color: #222831;">
+    <div class="container">
+      <h3 class="float-md-start mb-0 text-white"><a class="text-white" style="text-decoration: none;" href="/">Derny Online</a></h3>
+      <nav class="nav nav-masthead justify-content-center float-md-end">
+        <a class="nav-link fw-bold py-1 px-0" href="/">Home</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Features</a>
+        <a class="nav-link fw-bold py-1 px-0" href="#">Contact</a>
+        <a class="nav-link fw-bold py-1 px-0" href="/login">Login</a>
+        <a class="nav-link fw-bold py-1 px-0 active" aria-current="page" href="/signup">Sign up</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="my-auto container">
+    <div class="row my-5">
+      <div class="col-lg-6 d-flex" >
+        <img class="my-auto w-100" src="/images/b1.jpg" alt="image">
+      </div>
+
+      <div class="col-lg-6 d-block">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content rounded-4 shadow border-0">
+            <div class="modal-header p-5 pb-4 border-bottom-0">
+              <h1 class="fw-bold mb-0 fs-2">SignUp</h1>
+            </div>
+      
+            <div class="modal-body p-5 pt-0">
+              <!-- SignUp FORM -->
+              <form action="/signup" method="post" class="form-signin needs-validation mb-0" novalidate>
+                
+                <div class="d-flex">
+                  <div class="form-floating w-50 me-2 mb-3 has-validation">
+                    <input type="text" name="firstName" class="form-control rounded-3" id="floatingInput" placeholder="First name" required>
+                    <label for="floatingInput">&nbsp;&nbsp; First name</label>
+                    <div class="invalid-feedback">
+                      Your First name is required.
+                    </div>
+                  </div>
+      
+                  <div class="form-floating w-50 ms-2 mb-3 has-validation">
+                    <input type="text" name="secondName" class="form-control rounded-3" id="floatingInput1" placeholder="Second name" required>
+                    <label for="floatingInput">&nbsp;&nbsp; Second name</label>
+                    <div class="invalid-feedback">
+                      Your Second name is required.
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="form-floating mb-3">
+                  <input type="email" name="email" class="form-control rounded-3" id="floatingInput2" placeholder="name@example.com" required>
+                  <label for="floatingInput">&nbsp;&nbsp; Email address</label>
+                  <div class="invalid-feedback">
+                    Vaild email is required.
+                  </div>
+                </div>
+    
+                <div class="form-floating mb-3">
+                  <input type="password" name="password" id="floatingPassword1" class="form-control rounded-3" placeholder="Password" required>
+                  <i class="far fa-eye" id="togglePassword1"></i>
+                  <label for="floatingPassword">&nbsp;&nbsp; Password</label>
+                  <div id="p1" class="invalid-feedback">
+                    Password is required.
+                  </div>
+                </div>
+    
+                <div class="form-floating mb-3">
+                  <input type="password" name="confirmPassword" id="floatingPassword2" class="form-control rounded-3" placeholder="Confirm Password" required>
+                  <i class="far fa-eye" id="togglePassword2"></i>
+                  <label for="floatingPassword">&nbsp;&nbsp; Confirm password</label>
+                  <div id="p2" class="invalid-feedback">
+                    Confirm your password.
+                  </div>
+                  <div class="passwordMatching">
+                    Passwords are not matching.
+                  </div>
+                </div>
+                <button class="w-100 mb-2 btn btn-lg fw-bold rounded-3 btn-dark" type="submit">Sign up</button>
+              </form>
+              <hr class="my-3">
+              <h2 class="fs-5 fw-bold mb-3">Already have an account?</h2>
+              <a class="w-100 py-2 mb-2 btn btn-lg fw-bold btn-outline-dark rounded-3" href="/login">Login</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-auto pt-3 text-white-50 text-center text-small" style="background-color: #222831;">
+    <div class="d-flex container">
+      <div class="me-auto">
+        <p>© 2022 - <span id="current-year"></span> | Developed By
+          <a class="text-white-50" href="https://linkedin.com/in/ThisIsMrIsmail"
+          target="_blank" rel="noopener noreferrer">Ismail Sherif</a>
+        </p>
+        <script>
+          let year = new Date();
+          document.querySelector("#current-year").innerHTML = year.getFullYear();
+        </script>
+      </div>
+      <ul class="list-inline">
+        <li class="list-inline-item"><a class="text-white-50" href="#">Privacy</a></li>
+        <li class="list-inline-item"><a class="text-white-50" href="#">Terms</a></li>
+        <li class="list-inline-item"><a class="text-white-50" href="#">Support</a></li>
+      </ul>
+    </div>
+  </footer>
+</div>
+
+  <%- include ("partials/scripts") -%>
+
+  <script src="/js/signup.js"></script>
+
+</body>
+</html>

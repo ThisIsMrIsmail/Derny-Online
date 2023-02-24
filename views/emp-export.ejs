@@ -29,16 +29,19 @@
 
 
 <body>
+
   <!-- this input are only for the barcode  -->
   <input type="text" class="d-none" id="barcode" value="<%= barcode %>">
   <input type="text" class="d-none" id="empDateOfJoining" value="<%= emp.date_of_joining %>">
   <input type="text" class="d-none" id="emp_id" value="<%= emp.emp_id %>">
-  
 
-  <button class="fw-bold me-2" onclick="generatePDF_A4()">PDF (A4)</button>
-  <button class="fw-bold me-2" onclick="generatePDF_Letter()">PDF (Letter)</button>
-  <button class="fw-bold me-2" onclick="generatePDF_HighFidelity()">PDF (High Fidelity)</button>
-  <hr class="muted mb-4">
+  <div id="pdf-buttons">
+    <button class="fw-bold me-2" onclick="generatePDF_A4()">PDF (A4)</button>
+    <button class="fw-bold me-2" onclick="PrintPreviewPDF()">Print Preview</button>
+    <!-- <button class="fw-bold me-2" onclick="generatePDF_Letter()">PDF (Letter)</button> -->
+    <!-- <button class="fw-bold me-2" onclick="generatePDF_HighFidelity()">PDF (High Fidelity)</button> -->
+    <hr class="muted mb-4">
+  </div>
   
 
 <div id="content">
@@ -81,7 +84,12 @@
     <!-- employee name row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Employee Name:</p> </div>
     <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.full_name_en %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.full_name_ar %> </div>
+    <% if (emp.full_name_ar) { %>
+      <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.full_name_ar %> </div>
+    <% } else { %>
+      <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> - - - - - - - </div>
+    <% } %>
+    
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>اسم الموظف:</p> </div>
     <!-- emp id row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Employee ID:</p> </div>
@@ -235,7 +243,7 @@
           <tr class="text-center">
             <th scope="col" rowspan="2" class="date-table-title">Service Duration</th>
             <th class="date-table-title-value">Year</th>
-            <th class="date-table-title-value">Month</th>
+            <th class="date-table-title-value date-table-title-month">Month</th>
             <th class="date-table-title-value">Day</th>
             <th scope="col" rowspan="2" class="date-table-title">Contract Period</th>
             <th scope="col" rowspan="2" style="font-size: 18px; font-weight: 900; vertical-align: middle;"> <%= emp.contract %> </th>
@@ -259,7 +267,7 @@
           <tr class="text-center">
             <th scope="col" rowspan="2" class="date-table-title">مدة الخدمة</th>
             <th class="date-table-title-value">سنة</th>
-            <th class="date-table-title-value">شهر</th>
+            <th class="date-table-title-value date-table-title-month">شهر</th>
             <th class="date-table-title-value">يوم</th>
             <th scope="col" rowspan="2" class="date-table-title">مدة العقد</th>
             <th scope="col" rowspan="2" style="font-size: 18px; font-weight: 900; vertical-align: middle;"> <%= emp.contract %> </th>

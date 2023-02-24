@@ -32,16 +32,10 @@ window.jsPDF = window.jspdf.jsPDF;
 let page = document.getElementById("content");
 let filename = $("#emp_id").val();
 
-function generatePDF_Letter () {
-  html2canvas(page, {
-    scale: 2.4  
-  })
-  .then((content) => {
-    let base64image = content.toDataURL("image/jpeg");
-    const doc = new jsPDF('p', 'px', 'letter', [460, 600]);
-    doc.addImage(base64image, 'jpeg', 9.5, 10, 440, 560)
-    doc.save(filename + "-letter" + ".pdf")
-  })
+function PrintPreviewPDF () {
+  $("#pdf-buttons").css("display", "none");
+  window.print();
+  $("#pdf-buttons").css("display", "block");
 }
 
 function generatePDF_A4 () {
@@ -53,6 +47,18 @@ function generatePDF_A4 () {
     const doc = new jsPDF('p', 'px', 'a4');
     doc.addImage(base64image, 'jpeg', 10, 8, 426, 605)
     doc.save(filename + "-A4" + ".pdf")
+  })
+}
+
+function generatePDF_Letter () {
+  html2canvas(page, {
+    scale: 2.4  
+  })
+  .then((content) => {
+    let base64image = content.toDataURL("image/jpeg");
+    const doc = new jsPDF('p', 'px', 'letter', [460, 600]);
+    doc.addImage(base64image, 'jpeg', 9.5, 10, 440, 560)
+    doc.save(filename + "-letter" + ".pdf")
   })
 }
 

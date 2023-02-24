@@ -254,6 +254,15 @@ button:hover {
   font-weight: 900;
   vertical-align: middle;
 }
+.date-table-title-month {
+  border: 1px black solid;
+  border-top: 0px;
+}
+.rmMonthsOfService {
+  border: 1px black solid;
+  border-top: 0px;
+  border-bottom: 0px;
+}
 .en-date-table tr .date-table-title:first-of-type,
 .ar-date-table tr .date-table-title:first-of-type {
   background-color: var(--grey-color) !important;

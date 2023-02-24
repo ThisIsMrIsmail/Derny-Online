@@ -15,7 +15,7 @@
 <body class="d-flex h-100" style="background-color: white;">
     
 <div class="d-flex w-100 h-100 p-0 mx-auto flex-column">
-  <header class="p-2 sticky-top" style="background-color: #222831;">
+  <header class="p-2 sticky-top text-center" style="background-color: #222831;">
     <div class="container">
       <h3 class="float-md-start mb-0 text-white"><a class="text-white" style="text-decoration: none;" href="/">Derny Online</a></h3>
       <nav class="nav nav-masthead justify-content-center float-md-end">
@@ -103,23 +103,27 @@
     </div>
   </div>
 
-  <footer class="mt-auto pt-3 text-white-50 text-center text-small" style="background-color: #222831;">
-    <div class="d-flex container">
-      <div class="me-auto">
-        <p>© 2022 - <span id="current-year"></span> | Developed By
-          <a class="text-white-50" href="https://linkedin.com/in/ThisIsMrIsmail"
-          target="_blank" rel="noopener noreferrer">Ismail Sherif</a>
-        </p>
-        <script>
-          let year = new Date();
-          document.querySelector("#current-year").innerHTML = year.getFullYear();
-        </script>
+  <footer class="text-white-50 text-center text-small" style="background-color: #222831;">
+    <div class="container p-0">
+      <div class="m-0 mt-3 d-lg-flex">
+        <div class="me-auto">
+          <p class="text-sm-center">© 2022 - <span id="current-year"></span> | Developed By
+            <a class="text-white-50" href="https://linkedin.com/in/ThisIsMrIsmail"
+            target="_blank" rel="noopener noreferrer">Ismail Sherif</a>
+          </p>
+          <script>
+            let year = new Date();
+            document.querySelector("#current-year").innerHTML = year.getFullYear();
+          </script>
+        </div>
+        <div>
+          <ul class="list-inline text-sm-center">
+            <li class="list-inline-item"><a class="text-white-50" href="#">Privacy</a></li>
+            <li class="list-inline-item"><a class="text-white-50" href="#">Terms</a></li>
+            <li class="list-inline-item"><a class="text-white-50" href="#">Support</a></li>
+          </ul>
+        </div>
       </div>
-      <ul class="list-inline">
-        <li class="list-inline-item"><a class="text-white-50" href="#">Privacy</a></li>
-        <li class="list-inline-item"><a class="text-white-50" href="#">Terms</a></li>
-        <li class="list-inline-item"><a class="text-white-50" href="#">Support</a></li>
-      </ul>
     </div>
   </footer>
 </div>

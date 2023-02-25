@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser")
+const fs = require("fs")
 const path = require("path");
 const moment = require("moment")
 const pool = require(path.join(__dirname, "/../db.js"));
@@ -35,7 +36,9 @@ router.get("/employees/:getEmp/:exportType", async (req, res) => {
         records = records[0][0];
         
         if (records) {
+          
           const d = new Date();
+
           // Generating barcode
           let identityId = records.identity_id;
           let empId = records.emp_id;
@@ -46,6 +49,7 @@ router.get("/employees/:getEmp/:exportType", async (req, res) => {
             todayDate = "0" + todayDate;
           let barcode = todayDate + identityId + empId;
 
+          // Date options
           const options = {
             weekday: "long",
             day: "numeric",
@@ -53,11 +57,36 @@ router.get("/employees/:getEmp/:exportType", async (req, res) => {
             year: "numeric"
           };
 
+          // Attached Files checking
+          const emp_id = records.emp_id.toString()
+          const Folder = path.join(__dirname, "/../src", "uploads", "emp-files", emp_id);
+          const files = fs.readdirSync(Folder)
+          console.log(files);
+
+          function checkFiles (filename) {
+            let bool;
+            for (let i=0; i<files.length; i++) {
+              let StoredFileName = files[i].substring(0, files[i].length - 4);
+              if (filename == StoredFileName) {
+                bool = "true";
+              }
+            }
+            if (!bool)
+              bool = "false";
+            return bool;
+          }
+
           res.render("emp-export", {
             emp: records,
             barcode: barcode,
             dateOfJoiningEN: await records.date_of_joining.toLocaleDateString("en", options),
-            dateOfJoiningAR: await records.date_of_joining.toLocaleDateString("ar", options)
+            dateOfJoiningAR: await records.date_of_joining.toLocaleDateString("ar", options),
+            // getting files availability
+            personalImage: checkFiles("personal_image_" + emp_id),
+            IqamaId: checkFiles("iqama_id_" + emp_id),
+            passport: checkFiles("passport_" + emp_id),
+            contract: checkFiles("contract_" + emp_id),
+            socialInsurance: checkFiles("social_insurance_" + emp_id),
           });
         } else {
           res.send("<p>Error with getting Emp Info</p> <a href='/employees'>Employees</a>");

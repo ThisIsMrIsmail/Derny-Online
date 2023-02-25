@@ -194,9 +194,7 @@ router.post("/new-employee", async (req, res) => {
         console.log("=======================");
         console.log("✅ Main INSERT is DONE");
         console.log("===================================================");
-        // setTimeout(() => {
-          res.redirect("/employees"); 
-        // }, 300);
+        res.redirect("/employees");
       } else {
         res.render("submition-error");
       }

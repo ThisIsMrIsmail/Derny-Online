@@ -12,8 +12,13 @@ document.querySelector("#current-time").innerHTML = d.toLocaleTimeString("en", {
   hour: "2-digit",
   minute: "2-digit"
 });
-document.querySelector("#en-date").innerHTML = d.toLocaleDateString("en", options);
-document.querySelector("#ar-date").innerHTML = d.toLocaleDateString("ar", options);
+document.querySelector("#form-current-day").innerHTML = d.toLocaleDateString("en-SA");
+document.querySelector("#form-current-time").innerHTML = d.toLocaleTimeString("en", {
+  hour: "2-digit",
+  minute: "2-digit"
+});
+document.querySelector("#en-date").textContent = d.toLocaleDateString("en", options);
+document.querySelector("#ar-date").textContent = d.toLocaleDateString("ar", options);
 
 JsBarcode("#barcode-canvas", $("#barcode").val());
 
@@ -26,51 +31,56 @@ $(".yearsOfService").text( diff.years );
 $(".rmMonthsOfService").text( diff.months );
 $(".rmDaysOfService").text( diff.days );
 
-
+///////////////////////////////////////////////////////////
 window.jsPDF = window.jspdf.jsPDF;
-
-let page = document.getElementById("content");
-let filename = $("#emp_id").val();
 
 function PrintPreviewPDF () {
   $("#pdf-buttons").css("display", "none");
+  $("hr").css("display", "none");
   window.print();
-  $("#pdf-buttons").css("display", "block");
+  $("#pdf-buttons").css("display", "flex");
+  $("hr").css("display", "block");
 }
 
-function generatePDF_A4 () {
-  html2canvas(page, {
+function PrintPreviewForm () {
+  $("#pdf-buttons").css("display", "none");
+  $("hr").css("display", "none");
+  $("#content").css("display", "none");
+  $("#form-content").css("display", "block");
+  window.print();
+  $("#pdf-buttons").css("display", "flex");
+  $("hr").css("display", "block");
+  $("#content").css("display", "block");
+  $("#form-content").css("display", "none");
+}
+
+
+// saving Emp info form as pdf
+function savePDF () {
+  let emp_id = $("#emp_id").val();
+  let content = document.getElementById("content");
+  html2canvas(content, {
     scale: 3
   })
   .then((content) => {
     let base64image = content.toDataURL("image/jpeg");
     const doc = new jsPDF('p', 'px', 'a4');
     doc.addImage(base64image, 'jpeg', 10, 8, 426, 605)
-    doc.save(filename + "-A4" + ".pdf")
+    doc.save(emp_id + ".pdf")
   })
 }
 
-function generatePDF_Letter () {
-  html2canvas(page, {
-    scale: 2.4  
-  })
-  .then((content) => {
-    let base64image = content.toDataURL("image/jpeg");
-    const doc = new jsPDF('p', 'px', 'letter', [460, 600]);
-    doc.addImage(base64image, 'jpeg', 9.5, 10, 440, 560)
-    doc.save(filename + "-letter" + ".pdf")
-  })
-}
-
-function generatePDF_HighFidelity () {
-  html2canvas(page, {
+function saveFormPDF () {
+  let content = document.getElementById("form-content");
+  content.style.display = "block";
+  html2canvas(content, {
     scale: 3
   })
   .then((content) => {
     let base64image = content.toDataURL("image/jpeg");
-    const doc = new jsPDF('p', 'px', [1249, 1980]);
-    doc.addImage(base64image, 'jpeg', 35, 40, 1179, 1900)
-    doc.save(filename + "-high fidelity" + ".pdf")
+    const doc = new jsPDF('p', 'px', 'a4');
+    doc.addImage(base64image, 'jpeg', 10, 8, 426, 605)
+    doc.save("Employee_Form.pdf")
   })
+  content.style.display = "none";
 }
-

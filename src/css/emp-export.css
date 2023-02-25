@@ -1,16 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap');
 
 :root {
-  --grey-color: #b9b9b9;
+  --grey-color: #d3d3d3;
+  --ar-font: 'Amiri', serif;
+  --noto-font: 'Noto Naskh Arabic', serif;
+  --lateef-font: 'Lateef', serif;
+}
+* {
+  color: black;
 }
 
 body {
   margin: 25px 25px;
   font-family:'Times New Roman', Times, serif;
-  color: black;
   margin-bottom:60px;
 }
 
+#pdf-buttons {
+  display: flex;
+}
 button {
   background-color: #b30b00;
   color: #EEEEEE;
@@ -65,7 +73,7 @@ button:hover {
 }
 .english-title h3 {
   font-size: 19px;
-  font-weight: 900;
+  font-weight: 700;
   padding: 6px 0;
 }
 .arabic-title {
@@ -88,7 +96,7 @@ button:hover {
 .date {
   margin-bottom: 3px;
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
   height: 35px;
 }
 .date-title-1 {
@@ -102,17 +110,18 @@ button:hover {
   height: 35px;
   padding: 5px;
   background-color: var(--grey-color);
+  font-family: var(--noto-font);
+  font-weight: 700;
 }
 #en-date, #ar-date {
   height: 35px;
   padding: 5px;
 }
 
-
 .emp {
   margin-bottom: 3px;
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
 }
 .emp-word-1 {
   margin-right: auto;
@@ -124,6 +133,8 @@ button:hover {
   margin-left: auto;
   height: 35px;
   padding: 5px;
+  font-family: var(--noto-font);
+  font-weight: 700;
   background-color: var(--grey-color);
 }
 
@@ -133,7 +144,7 @@ button:hover {
 }
 .table-title-ltr {
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
   padding: 5px;
   height: 40px;
   background-color: var(--grey-color);
@@ -146,7 +157,8 @@ button:hover {
 }
 .table-title-rtl {
   font-size: 18px;
-  font-weight: 900;
+  font-family: var(--noto-font);
+  font-weight: 700;
   padding: 5px;
   height: 40px;
   background-color: var(--grey-color);
@@ -159,15 +171,26 @@ button:hover {
 }
 .table-word {
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
   padding: 5px;
   height: 40px;
 }
-
+.ar-table-word {
+  margin: 0;
+  padding: 0;
+}
+.ar-table-word p {
+  font-family: var(--noto-font);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 0;
+  margin: 0;
+  margin: 5px 5px 0px;
+}
 
 .address-table-title-ltr {
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 700;
   padding: 5px;
   height: 40px;
   background-color: var(--grey-color);
@@ -180,7 +203,8 @@ button:hover {
 }
 .address-table-title-rtl {
   font-size: 15px;
-  font-weight: 900;
+  font-family: var(--noto-font);
+  font-weight: 700;
   padding: 5px;
   height: 40px;
   background-color: var(--grey-color);
@@ -193,38 +217,53 @@ button:hover {
 }
 .address-table-word {
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 700;
   padding: 5px;
   height: 40px;
 }
-
-
+.ar-address-table-word {
+  margin: 0;
+  padding: 0;
+}
+.ar-address-table-word p {
+  font-family: var(--noto-font);
+  font-weight: 700;
+  font-size: 16px;
+  padding: 0;
+  margin: 0;
+  margin: 5px 5px 0px;
+}
 .salary {
   margin: 0;
 }
 .en-salary, .ar-salary {
   border: 3px black solid;
   margin-bottom: 3px;
-  color: black;
+}
+.ar-salary {
+  font-family: var(--noto-font);
+}
+.ar-salary .all-values {
+  font-family: 'Times New Roman', Times, serif;
 }
 .basic-salary, .total-salary {
   margin: 0;
   border: 1px black solid;
   vertical-align: middle;
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 700;
 }
 .allowances {
   margin: 0;
   border: 1px black solid;
   font-size: 17px;
-  font-weight: 900;
+  font-weight: 700;
 }
 .all-title td {
   margin: 0;
   border: 1px black solid;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
 }
 .all-values {
   height: 40px;
@@ -233,7 +272,7 @@ button:hover {
   border: 1px black solid;
   margin: 0;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
 }
 .en-salary tr th:first-of-type {
   background-color: var(--grey-color) !important;
@@ -247,12 +286,21 @@ button:hover {
   margin-bottom: 5px;
   color: black;
 }
+.ar-date-table {
+  font-family: var(--noto-font);
+}
 .date-table-title {
   border-right: 1px black solid;
   border-left: 1px black solid;
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
   vertical-align: middle;
+}
+.date-table-value {
+  font-family: 'Times New Roman', Times, serif;
+}
+.ar-dateOfJoining {
+  font-family: var(--noto-font);
 }
 .date-table-title-month {
   border: 1px black solid;
@@ -275,7 +323,7 @@ button:hover {
 }
 .date-table-value, .date-table-title-value {
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 700;
   vertical-align: middle;
 }
 .en-date-table tr .dateOfJoining:first-of-type,
@@ -295,27 +343,35 @@ button:hover {
 }
 
 
-img[alt="Attached"] {
-  margin-top: 5px;
-  width: 18px;
-  height: 18px;
-  border: 2px #9b9b9b solid;
-  background-color: var(--grey-color);
+.attachments img {
+  margin: 0px;
+  margin-top: 2px;
+  width: 25px;
+  height: 25px;
+  padding: 0px;
+  border-radius: 5px;
 }
-.attach-title {
+
+.en-attach-title, .ar-attach-title {
   margin-top: 5px;
   margin-bottom: 5px;
   padding-left: 1px;
   padding-right: 1px;
   height: 20px;
   font-size: 15px;
-  font-weight: 900;
+  font-weight: 700;
 }
-.attach-title p {
+.en-attach-title p, .ar-attach-title p {
   margin: 0;
 }
-.attach-title p span {
-  padding: 1px 4px;
+.ar-attach-title {
+  font-family: var(--noto-font);
+}
+.ar-attach-title p span {
+  font-family: 'Times New Roman', Times, serif;
+}
+.en-attach-title p span, .ar-attach-title p span {
+  padding: 1px 5px;
   margin: 0px 3px;
   width: 20px;
   height: 20px;
@@ -330,29 +386,36 @@ img[alt="Attached"] {
   border: 3px black solid;
   background-color: var(--grey-color);
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
 }
-
+.ar-promise {
+  font-family: var(--noto-font);
+}
 
 .signature {
   margin: auto;
   margin-top: 10px;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
 }
 .signature-date {
   margin: auto;
   margin-top: 10px;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
 }
-
+.ar-signature, .ar-signature-date {
+  font-family: var(--noto-font);
+}
 
 .approve {
   margin: 0;
   margin-top: 0px;
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
+}
+.ar-approve {
+  font-family: var(--noto-font);
 }
 .approve-left {
   margin: auto;
@@ -371,3 +434,24 @@ img[alt="Attached"] {
   font-size: 13px;
   font-weight: 600;
 }
+
+
+/* Empty Form */
+#form-content {
+  display: none;
+}
+#form-current-day, #form-current-time {
+  margin: 0px auto;
+}
+.monthsOfService {
+  border: 1px black solid;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+.check-box {
+  width: 30px;
+  height: 30px;
+  margin: 2px auto;
+  border: 2px black solid;
+}
+/* Empty Form */

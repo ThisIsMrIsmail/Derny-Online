@@ -5,19 +5,20 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title> <%= emp.emp_id %> | Export</title>
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/emp-export.css">
 
-  <!-- to convert html to pdf -->
+  <!-- jsbarcode cdn for generating the barcode -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js" integrity="sha512-QEAheCz+x/VkKtxeGoDq6nsGyzTx/0LMINTgQjqZ0h3+NjP+bCsPYz3hn0HnBkGmkIFSr7QcEZT+KyEM7lbLPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+  <!-- to convert html to pdf -->
   <!-- jspdf cdn -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- jspdf debug cdn -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.debug.js" type="text/javascript"></script>
   <!-- html2canvas cdn -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <!-- jsbarcode cdn for generating the barcode -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js" integrity="sha512-QEAheCz+x/VkKtxeGoDq6nsGyzTx/0LMINTgQjqZ0h3+NjP+bCsPYz3hn0HnBkGmkIFSr7QcEZT+KyEM7lbLPQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- moment cdn to get the difference between two dates -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js" integrity="sha512-qTXRIMyZIFb8iQcfjXWCO8+M5Tbc38Qi5WzdPOYZHIlZpzBHG3L3by84BBBOiRGiEb7KKtAOAs5qYdUiZiQNNQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
   <!-- moment precise range plugin  cdn -->
@@ -36,14 +37,14 @@
   <input type="text" class="d-none" id="emp_id" value="<%= emp.emp_id %>">
 
   <div id="pdf-buttons">
-    <button class="fw-bold me-2" onclick="generatePDF_A4()">PDF (A4)</button>
-    <button class="fw-bold me-2" onclick="PrintPreviewPDF()">Print Preview</button>
-    <!-- <button class="fw-bold me-2" onclick="generatePDF_Letter()">PDF (Letter)</button> -->
-    <!-- <button class="fw-bold me-2" onclick="generatePDF_HighFidelity()">PDF (High Fidelity)</button> -->
-    <hr class="muted mb-4">
+    <button class="fw-bold me-2" onclick="savePDF()">PDF (A4)</button>
+    <button class="fw-bold me-4" onclick="PrintPreviewPDF()">Print Preview</button>
+    <button class="fw-bold ms-auto me-2" onclick="PrintPreviewForm()">Print Preview (Form)</button>
+    <button class="fw-bold me-2" onclick="saveFormPDF('form-content')">PDF (Form)</button>
   </div>
-  
 
+  <hr class="muted mb-4">
+  
 <div id="content">
   <div class="row  mb-0" id="today-date">
     <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr">
@@ -54,7 +55,7 @@
   </div>
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4"><img src="/uploads/emp-files/<%= emp.emp_id %>/personal_image_<%= emp.emp_id %>.jpg" class="personal-image" alt=""></div>
-    <div class="col-lg-4 col-md-4 col-sm-4 logo-div"><img src="/logos/<%= emp.company_name %>.jpg" class="logo-image" alt=""></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 logo-div"><img src="/companys-logo/<%= emp.company_name %>.jpg" class="logo-image" alt=""></div>
     <div class="col-lg-4 col-md-4 col-sm-4"></div>
   </div>
   <div class="english-title container text-center">
@@ -78,58 +79,58 @@
   <div class="row emp-table">
     <!-- company name row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Company Name:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.company_name %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.company_name %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.company_name %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"> <p> تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>اسم الشركة:</p> </div>
     <!-- employee name row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Employee Name:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.full_name_en %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.full_name_en %>  </p> </div>
     <% if (emp.full_name_ar) { %>
-      <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.full_name_ar %> </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"> <p> <%= emp.full_name_ar %> </p> </div>
     <% } else { %>
-      <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> - - - - - - - </div>
+      <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"> <p> - - - - - - - </p> </div>
     <% } %>
     
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>اسم الموظف:</p> </div>
     <!-- emp id row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Employee ID:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.emp_id %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.emp_id %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.emp_id %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <p>  <%= emp.emp_id %>  </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>الرقم الوظيفي:</p> </div>
     <!-- indentity id row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Identity / Iqama ID:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.identity_id %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.identity_id %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.identity_id %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <p>  <%= emp.identity_id %>  </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>رقم الهوية / الإقامة:</p> </div>
     <!-- passport id row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Passport ID:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.passport_id %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.passport_id %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.passport_id %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <p>  <%= emp.passport_id %>  </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>رقم جواز السفر:</p> </div>
     <!-- email row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Email:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.email %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.email %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.email %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <p>  <%= emp.email %>  </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>البريد الإلكتروني:</p> </div>
     <!-- nationality row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Nationality:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.nationality %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.nationality %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.nationality %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"> <p> تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>الجنسية:</p> </div>
     <!-- position row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Position:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.position %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.position %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.position %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"> <p> تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>الوظيفة:</p> </div>
     <!-- department row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Department:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.department %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.department %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.department %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"> <p> تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>القسم:</p> </div>
     <!-- branch row -->
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"><p>Branch:</p></div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <%= emp.branch %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="rtl"> <%= emp.branch %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"> <p>  <%= emp.branch %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"> <p> تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"><p>الفرع:</p></div>
   </div>
   
@@ -141,28 +142,28 @@
   <div class="row emp-table">
     <!-- kingdom address row -->
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Address in the Kingdom:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr""> <%= emp.current_state %> - <%= emp.current_address %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="rtl"> <%= emp.current_state %> - <%= emp.current_address %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr""> <p>  <%= emp.current_state %> - <%= emp.current_address %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-address-table-word" dir="rtl"> <p> تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>عنوان السكن بالمملكة:</p> </div>
     <!-- mobile number row -->
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Mobile number:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> <%= emp.current_phone_1 %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="rtl"> <%= emp.current_phone_1 %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> <p>  <%= emp.current_phone_1 %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="rtl"> <p>  <%= emp.current_phone_1 %>  </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>رقم الجوال:</p> </div>
     <!-- home country row -->
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Home Country Address:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> <%= emp.home_country %> - <%= emp.home_state %> - <%= emp.home_address %></div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="rtl"> <%= emp.home_country %> - <%= emp.home_state %> - <%= emp.home_address %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> <p>  <%= emp.home_country %> - <%= emp.home_state %> - <%= emp.home_address %> </p></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-address-table-word" dir="rtl"> <p> تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>عنوان السكن بالبلد الأم:</p> </div>
     <!-- contact number row -->
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Contact Number:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> <%= emp.home_phone %> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="rtl"> <%= emp.home_phone %> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> <p>  <%= emp.home_phone %>  </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="rtl"> <p>  <%= emp.home_phone %>  </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>رقم التواصل:</p> </div>
     <!-- last date return from leave row -->
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Last date return from leave:</p> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> - - - - - - - </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="rtl"> - - - - - - - </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"> <p> - - - - - - - </p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-address-table-word" dir="rtl"> <p>  تجربة تجربة تجربة </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>تاريخ آخر عودة من الإجازة:</p> </div>
   </div>
   
@@ -287,65 +288,66 @@
     <div class="col-lg-2 col-md-2 col-sm-2 emp-word-1" dir="ltr"> <p> <u>Attached Documents:</u> </p> </div>
     <div class="col-lg-2 col-md-2 col-sm-2 emp-word-2" dir="rtl"> <p> <u>المستندات المرفقة:</u> </p> </div>
   </div>
-  <div class="row emp-table">
+  <div class="row emp-table attachments">
     <!-- row -->
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="ltr"> <p> <span>1</span> Copy of ID/Iqama</p> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="rtl"> <p> <span>1</span> صورة من الهوية/الإقامة:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>1</span> Copy of ID/Iqama</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/<%= IqamaId %>.svg" alt=""></div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/<%= IqamaId %>.svg" alt=""></div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>1</span> صورة من الهوية/الإقامة:</p> </div>
     <!-- row -->
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="ltr"> <p> <span>2</span> Copy of the passport (for non-Saudis):</p> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="rtl"> <p> <span>2</span> صورة من جواز السفر (لغير السعودين):</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>2</span> Copy of the passport (for non-Saudis):</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/<%= passport %>.svg" alt=""></div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/<%= passport %>.svg" alt=""></div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>2</span> صورة من جواز السفر (لغير السعودين):</p> </div>
     <!-- row -->
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="ltr"> <p> <span>3</span> Two personal photos, white background:</p> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="rtl"> <p> <span>3</span> عدد (2) صورة شخصية خلفية بيضاء:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>3</span> Two personal photos, white background:</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/<%= personalImage %>.svg" alt=""></div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/<%= personalImage %>.svg" alt=""></div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>3</span> عدد (2) صورة شخصية خلفية بيضاء:</p> </div>
     <!-- row -->
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="ltr"> <p> <span>4</span> Copy of employment contract (paper / electronic):</p> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="rtl"> <p> <span>4</span> صورة من عقد العمل (ورقي / إلكتروني):</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>4</span> Copy of employment contract (paper / electronic):</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/<%= contract %>.svg" alt=""></div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/<%= contract %>.svg" alt=""></div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>4</span> صورة من عقد العمل (ورقي / إلكتروني):</p> </div>
     <!-- row -->
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="ltr"> <p> <span>5</span> Print social insurance:</p> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/check.svg" alt="Attached"></div> </div>
-    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/check.svg" alt="Attached" style="margin-bottom: 5px;"></div> </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 attach-title" dir="rtl"> <p> <span>5</span> برنت تأمينات إجتماعية:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>5</span> Print social insurance:</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div><img src="/svg/<%= socialInsurance %>.svg" alt=""></div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div><img src="/svg/<%= socialInsurance %>.svg" alt=""></div> </div>
+    <!-- style="margin-bottom: 5px;" -->
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>5</span> برنت تأمينات إجتماعية:</p> </div>
   </div>
   
   <div class="row promise">
-    <div class="col-lg-6 col-md-6 col-sm-6" dir="ltr">
+    <div class="col-lg-6 col-md-6 col-sm-6 en-promise" dir="ltr">
       I, the undersigned, certify the validity of all the data mentioned and the attached
         documents, and I bear full responsibility if this is not true.
     </div>
-    <div class="col-lg-6 col-md-6 col-sm-6" dir="rtl">
+    <div class="col-lg-6 col-md-6 col-sm-6 ar-promise" dir="rtl">
       أقر أنا الموقع أدناه بصحة جميع البيانات المذكورة والمستندات المرفقة وأتحمل المسؤلية كاملة ف
         حالة عدم صحة ذلك.
     </div>
   </div>
   
   <div class="row signature">
-    <div class="col-lg-3 col-md-3 col-sm-3" dir="ltr">Employee Name:</div>
-    <div class="col-lg-3 col-md-3 col-sm-3" dir="ltr">SIGNATURE:</div>
-    <div class="col-lg-3 col-md-3 col-sm-3" dir="rtl">التوقيع:</div>
-    <div class="col-lg-3 col-md-3 col-sm-3" dir="rtl">اسم الموظف:</div>
+    <div class="col-lg-3 col-md-3 col-sm-3 en-signature" dir="ltr">Employee Name:</div>
+    <div class="col-lg-3 col-md-3 col-sm-3 en-signature" dir="ltr">SIGNATURE:</div>
+    <div class="col-lg-3 col-md-3 col-sm-3 ar-signature" dir="rtl">التوقيع:</div>
+    <div class="col-lg-3 col-md-3 col-sm-3 ar-signature" dir="rtl">اسم الموظف:</div>
   </div>
   
   <div class="row signature-date">
-    <div class="col-lg-6 col-md-6 col-sm-6" dir="ltr">DATE:</div>
-    <div class="col-lg-6 col-md-6 col-sm-6" dir="rtl">التاريخ:</div>
+    <div class="col-lg-6 col-md-6 col-sm-6 en-signature-date" dir="ltr">DATE:</div>
+    <div class="col-lg-6 col-md-6 col-sm-6 ar-signature-date" dir="rtl">التاريخ:</div>
   </div>
   
   <div class="row approve">
     <div class="col-lg-3 col-md-3 col-sm-3 row approve-left" dir="ltr">
-      <div class="col-lg-6 col-md-6 col-sm-6" dir="ltr">APPROVAL</div>
-      <div class="col-lg-6 col-md-6 col-sm-6" dir="rtl">إعتماد الإدارة</div>
+      <div class="col-lg-6 col-md-6 col-sm-6 en-approve" dir="ltr">APPROVAL</div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ar-approve" dir="rtl">إعتماد الإدارة</div>
     </div>
     <div class="col-lg-3 col-md-3 col-sm-3 row approve-right">
-      <div class="col-lg-6 col-md-6 col-sm-6" dir="ltr">HR</div>
-      <div class="col-lg-6 col-md-6 col-sm-6" dir="rtl">الموارد البشرية</div>
+      <div class="col-lg-6 col-md-6 col-sm-6 en-approve" dir="ltr">HR</div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ar-approve" dir="rtl">الموارد البشرية</div>
     </div>
   </div>
   <div class="row dots">
@@ -358,12 +360,350 @@
         ..................................................................</p>
     </div>
   </div>
-
 </div>
 
 
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+<div id="form-content">
+  <div class="row mt-1 mb-4" id="today-date">
+      <p id="form-current-day"></p>
+      <p id="form-current-time"></p>
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4"><div class="personal-image"></div></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 logo-div"><div class="logo-image"></div></div>
+    <div class="col-lg-4 col-md-4 col-sm-4"></div>
+  </div>
+  <div class="english-title container text-center">
+    <h3 class=""> <u>EMPLOYEE DATA IDENTIFICATION FORM</u> </h3>
+  </div>
+  <div class="arabic-title  container text-center">
+    <h3> <u>نموذج تعريف بيانات موظف</u> </h3>
+  </div>
+  <div class="row date">
+    <div class="col-lg-1 col-md-1 col-sm-1 date-title-1" dir="ltr"> <p>DATE:</p> </div>
+    <div class="col-lg-5 col-md-4 col-sm-4" dir="ltr"> <p id="en-date"></p> </div>
+    <div class="col-lg-5 col-md-4 col-sm-4" dir="rtl"> <p id="ar-date"></p> </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 date-title-2" dir="rtl"> <p>التاريخ:</p> </div>
+  </div>
+  
+  <!-- Employee Data -->
+  <div class="row emp">
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-1" dir="ltr"> <p> <u>Employee Data:</u> </p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-2" dir="rtl"> <p> <u>بيانات الموظف:</u> </p> </div>
+  </div>
+  <div class="row emp-table">
+    <!-- company name row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Company Name:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark ar-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>اسم الشركة:</p> </div>
+    <!-- employee name row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Employee Name:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark ar-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>اسم الموظف:</p> </div>
+    <!-- emp id row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Employee ID:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>الرقم الوظيفي:</p> </div>
+    <!-- indentity id row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Identity / Iqama ID:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>رقم الهوية / الإقامة:</p> </div>
+    <!-- passport id row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Passport ID:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>رقم جواز السفر:</p> </div>
+    <!-- email row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Email:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>البريد الإلكتروني:</p> </div>
+    <!-- nationality row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Nationality:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark ar-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>الجنسية:</p> </div>
+    <!-- position row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Position:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark ar-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>الوظيفة:</p> </div>
+    <!-- department row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"> <p>Department:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark ar-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"> <p>القسم:</p> </div>
+    <!-- branch row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-ltr" dir="ltr"><p>Branch:</p></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 table-title-rtl" dir="rtl"><p>الفرع:</p></div>
+  </div>
+  
+  <!-- Additional Information -->
+  <div class="row emp mt-2">
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-1" dir="ltr"> <p> <u> Additional Information:</u> </p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-2" dir="rtl"> <p> <u>معلومات إضافية:</u> </p> </div>
+  </div>
+  <div class="row emp-table">
+    <!-- kingdom address row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Address in the Kingdom:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark address-table-word" dir="ltr""></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark ar-address-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>عنوان السكن بالمملكة:</p> </div>
+    <!-- mobile number row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Mobile number:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark address-table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark address-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>رقم الجوال:</p> </div>
+    <!-- home country row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Home Country Address:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark address-table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark ar-address-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>عنوان السكن بالبلد الأم:</p> </div>
+    <!-- contact number row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Contact Number:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark address-table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 border-bottom border-1 border-dark address-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>رقم التواصل:</p> </div>
+    <!-- last date return from leave row -->
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-ltr" dir="ltr"> <p>Last date return from leave:</p> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 address-table-word" dir="ltr"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-address-table-word" dir="rtl"></div>
+    <div class="col-lg-2 col-md-2 col-sm-2 address-table-title-rtl" dir="rtl"> <p>تاريخ آخر عودة من الإجازة:</p> </div>
+  </div>
+  
+  <!-- salary -->
+  <div class="row emp mt-2">
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-1" dir="ltr"> <p> <u>Salary Receipt Details:</u> </p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-2" dir="rtl"> <p> <u>تفاصيل الراتب المستلم:</u> </p> </div>
+  </div>
+  <div class="row">
+    <!-- english -->
+    <div class="col-lg-6 col-md-6 col-sm-6" dir="ltr">
+      <table class="table text-center en-salary">
+        <tbody>
+          <tr>
+            <th scope="col" rowspan="2" class="basic-salary" style="border-top: 0px;">Basic Salary</th>
+            <th scope="col" colspan="5" class="allowances">Allowances</th>
+            <th scope="col" rowspan="2" class="total-salary">Total Salary</th>
+          </tr>
+          <tr class="all-title">
+            <td>Trans. All</td>
+            <td>Hous. All</td>
+            <td>Call. All</td>
+            <td>Work. All</td>
+            <td>Other. All</td>
+          </tr>
+          <tr class="all-values">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- arabic -->
+    <div class="col-lg-6 col-md-6 col-sm-6" dir="rtl">
+      <table class="table text-center ar-salary">
+        <tbody>
+          <tr>
+            <th scope="col" rowspan="2" class="basic-salary">الراتب الأساسي</th>
+            <th scope="col" colspan="5" class="allowances">البدلات</th>
+            <th scope="col" rowspan="2" class="total-salary">إجمالي الراتب</th>
+          </tr>
+          <tr class="all-title">
+            <td>بدل النقل</td>
+            <td>بدل السكن</td>
+            <td>بدل إتصال</td>
+            <td>بدل طبيعية عمل</td>
+            <td>أخرى</td>
+          </tr>
+          <tr class="all-values">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Date of Joining -->
+  <div class="row">
+    <!-- english -->
+    <div class="col-lg-6 col-md-6 col-sm-6" dir="ltr">
+      <table class="table en-date-table">
+        <tbody>
+          <tr>
+            <th scope="col" colspan="1" class="date-table-value en-dateOfJoining">Employee Joining Date:</th>
+            <th scope="col" colspan="5" class="date-table-value en-dateOfJoining"></th>
+          </tr>
+          <tr class="text-center">
+            <th scope="col" rowspan="2" class="date-table-title">Service Duration</th>
+            <th class="date-table-title-value">Year</th>
+            <th class="date-table-title-value date-table-title-month">Month</th>
+            <th class="date-table-title-value">Day</th>
+            <th scope="col" rowspan="2" class="date-table-title">Contract Period</th>
+            <th scope="col" rowspan="2">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+          </tr>
+          <tr class="text-center">
+            <td class="date-table-value">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td class="date-table-value monthsOfService">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td class="date-table-value">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <!-- arabic -->
+    <div class="col-lg-6 col-md-6 col-sm-6" dir="rtl">
+      <table class="table ar-date-table">
+        <tbody>
+          <tr>
+            <th scope="col" colspan="1" class="date-table-value ar-dateOfJoining">تاريخ إلتحاق الموظف بالعمل:</th>
+            <th scope="col" colspan="5" class="date-table-value ar-dateOfJoining"></th>
+          </tr>
+          <tr class="text-center">
+            <th scope="col" rowspan="2" class="date-table-title">مدة الخدمة</th>
+            <th class="date-table-title-value">سنة</th>
+            <th class="date-table-title-value date-table-title-month">شهر</th>
+            <th class="date-table-title-value">يوم</th>
+            <th scope="col" rowspan="2" class="date-table-title">مدة العقد</th>
+            <th scope="col" rowspan="2">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </th>
+          </tr>
+          <tr class="text-center">
+            <td class="date-table-value">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td class="date-table-value monthsOfService">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td class="date-table-value">
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- attached Documents -->
+  <div class="row emp">
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-1" dir="ltr"> <p> <u>Attached Documents:</u> </p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 emp-word-2" dir="rtl"> <p> <u>المستندات المرفقة:</u> </p> </div>
+  </div>
+  <div class="row emp-table">
+    <!-- row -->
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>1</span> Copy of ID/Iqama</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>1</span> صورة من الهوية/الإقامة:</p> </div>
+    <!-- row -->
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>2</span> Copy of the passport (for non-Saudis):</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>2</span> صورة من جواز السفر (لغير السعودين):</p> </div>
+    <!-- row -->
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>3</span> Two personal photos, white background:</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>3</span> عدد (2) صورة شخصية خلفية بيضاء:</p> </div>
+    <!-- row -->
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>4</span> Copy of employment contract (paper / electronic):</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>4</span> صورة من عقد العمل (ورقي / إلكتروني):</p> </div>
+    <!-- row -->
+    <div class="col-lg-4 col-md-4 col-sm-4 en-attach-title" dir="ltr"> <p> <span>5</span> Print social insurance:</p> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="ltr"> <div> <div class="check-box"></div> </div> </div>
+    <div class="col-lg-2 col-md-2 col-sm-2" dir="rtl"> <div> <div class="check-box" style="margin-bottom: 5px;"></div> </div> </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 ar-attach-title" dir="rtl"> <p> <span>5</span> برنت تأمينات إجتماعية:</p> </div>
+  </div>
+  
+  <div class="row promise">
+    <div class="col-lg-6 col-md-6 col-sm-6 en-promise" dir="ltr">
+      I, the undersigned, certify the validity of all the data mentioned and the attached
+        documents, and I bear full responsibility if this is not true.
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 ar-promise" dir="rtl">
+      أقر أنا الموقع أدناه بصحة جميع البيانات المذكورة والمستندات المرفقة وأتحمل المسؤلية كاملة ف
+        حالة عدم صحة ذلك.
+    </div>
+  </div>
+  
+  <div class="row signature">
+    <div class="col-lg-3 col-md-3 col-sm-3 en-signature" dir="ltr">Employee Name:</div>
+    <div class="col-lg-3 col-md-3 col-sm-3 en-signature" dir="ltr">SIGNATURE:</div>
+    <div class="col-lg-3 col-md-3 col-sm-3 ar-signature" dir="rtl">التوقيع:</div>
+    <div class="col-lg-3 col-md-3 col-sm-3 ar-signature" dir="rtl">اسم الموظف:</div>
+  </div>
+  
+  <div class="row signature-date">
+    <div class="col-lg-6 col-md-6 col-sm-6 en-signature-date" dir="ltr">DATE:</div>
+    <div class="col-lg-6 col-md-6 col-sm-6 ar-signature-date" dir="rtl">التاريخ:</div>
+  </div>
+  
+  <div class="row approve">
+    <div class="col-lg-3 col-md-3 col-sm-3 row approve-left" dir="ltr">
+      <div class="col-lg-6 col-md-6 col-sm-6 en-approve" dir="ltr">APPROVAL</div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ar-approve" dir="rtl">إعتماد الإدارة</div>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-3 row approve-right">
+      <div class="col-lg-6 col-md-6 col-sm-6 en-approve" dir="ltr">HR</div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ar-approve" dir="rtl">الموارد البشرية</div>
+    </div>
+  </div>
+  <div class="row dots">
+    <div class="col-lg-6 col-md-6 col-sm-6" dir="ltr">
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ..................................................................</p>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6" dir="rtl">
+      <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        ..................................................................</p>
+    </div>
+  </div>
+</div>
+
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+<!---------------------------------------------------------------------------->
+
+
+<script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script src="/js/emp-export.js"></script>
-
 </body>
 </html>

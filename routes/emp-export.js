@@ -59,7 +59,7 @@ router.get("/employees/:getEmp/:exportType", async (req, res) => {
 
           // Attached Files checking
           const emp_id = records.emp_id.toString()
-          const Folder = path.join(__dirname, "/../src", "uploads", "emp-files", emp_id);
+          const Folder = path.join(__dirname, "/../src", "uploads", "emp-attached-files", emp_id);
           const files = fs.readdirSync(Folder)
           console.log(files);
 

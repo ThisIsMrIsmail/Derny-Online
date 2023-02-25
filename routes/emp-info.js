@@ -136,7 +136,7 @@ router.post("/employees/:getEmp", async (req, res) => {
     try {
       const emp_id = req.params.getEmp;
       const updateFile = async (file, fileName, name) => {
-        const folderPath = path.join(__dirname, "/../src", "uploads", "emp-files", emp_id);
+        const folderPath = path.join(__dirname, "/../src", "uploads", "emp-attached-files", emp_id);
         if (file) {
           file.mv(path.join(folderPath, fileName));
           console.log(" (" +name+ ") UPLOADED");

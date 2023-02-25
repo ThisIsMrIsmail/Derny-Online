@@ -51,20 +51,20 @@
           <button class="dropbtn-attach px-2">Attachments</button>
           <div class="dropdown-content-attach">
             <!-- iqama/id pdf -->
-            <a href="/uploads/emp-files/<%= emp.emp_id %>/iqama_id_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/uploads/emp-attached-files/<%= emp.emp_id %>/iqama_id_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
               <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Iqama/ID</a>
             <!-- passport pdf -->
-            <a href="/uploads/emp-files/<%= emp.emp_id %>/passport_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/uploads/emp-attached-files/<%= emp.emp_id %>/passport_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
               <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Passport</a>
             <!-- social insurance pdf -->
-            <a href="/uploads/emp-files/<%= emp.emp_id %>/social_insurance_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/uploads/emp-attached-files/<%= emp.emp_id %>/social_insurance_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
               <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Social Insurance</a>
             <!-- certificates pdf -->
-            <a href="/uploads/emp-files/<%= emp.emp_id %>/certificates_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/uploads/emp-attached-files/<%= emp.emp_id %>/certificates_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
               <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Certificates</a>
-            <a href="/uploads/emp-files/<%= emp.emp_id %>/driving_license_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/uploads/emp-attached-files/<%= emp.emp_id %>/driving_license_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
               <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Driving license</a>
-            <a href="/uploads/emp-files/<%= emp.emp_id %>/others_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/uploads/emp-attached-files/<%= emp.emp_id %>/others_<%= emp.emp_id %>.pdf" target="_blank" rel="noopener noreferrer">
               <span data-feather="file-text" class="align-text-bottom"></span>&nbsp;Others</a>      
           </div>
         </div>
@@ -92,7 +92,7 @@
       <div class="row">
         <div class="col-lg-3">
           <!-- put the renamed image by Employee id here -->
-          <img id="emp-image" src='/uploads/emp-files/<%= emp.emp_id %>/personal_image_<%= emp.emp_id %>.jpg'
+          <img id="emp-image" src='/uploads/emp-attached-files/<%= emp.emp_id %>/personal_image_<%= emp.emp_id %>.jpg'
             class="img-thumbnail rounded  mx-auto d-block"
             alt="&nbsp; Employee personal image &nbsp;"
           >

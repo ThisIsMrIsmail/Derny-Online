@@ -142,7 +142,7 @@ router.post("/new-employee", async (req, res) => {
     try {
       let emp_id = EmpId.toString();
       // creating folder for the employee
-      const folderPath = path.join(__dirname, "/../src", "uploads", "emp-files", emp_id);
+      const folderPath = path.join(__dirname, "/../src", "uploads", "emp-attached-files", emp_id);
       try { if (!fs.existsSync(folderPath)) fs.mkdirSync(folderPath); }
       catch (err) { console.error(err); }
       // save file function

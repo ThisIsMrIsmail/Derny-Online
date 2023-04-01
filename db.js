@@ -8,7 +8,7 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT,
   user: process.env.DB_USERNAME || 'root',
   password: process.env.DB_PASSWORD || '',
-  database: process.env.DB_NAME || 'pms',
+  database: process.env.DB_NAME || 'derny_online',
   insecureAuth : true,
   waitForConnections: true,
   connectionLimit: 10,

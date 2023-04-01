@@ -80,7 +80,6 @@ router.post("/new-employee", async (req, res) => {
         date_of_joining: req.body.dateOfJoining,
         email: req.body.email,
         gender: req.body.gender,
-        contract: req.body.contract,
         identity_id: req.body.identityId,
         passport_id: req.body.passportId,
         nationality: req.body.nationality,
@@ -114,6 +113,10 @@ router.post("/new-employee", async (req, res) => {
         department:req.body.department,
         emp_id:emp_id
       }
+      const contractsDATA = {
+        date_of_joining: req.body.dateOfJoining,
+        contract_years: req.body.contractYears
+      }
 
       await pool.query(`INSERT INTO employees SET ?`, employeesDATA);
       console.log("- (employees) DONE");
@@ -129,6 +132,9 @@ router.post("/new-employee", async (req, res) => {
       console.log("---------------------");
       await pool.query(`INSERT INTO departments SET ?`, departmentsDATA);
       console.log("- (departments) DONE");
+      console.log("---------------------");
+      await pool.query(`INSERT INTO contracts SET ?`, contractsDATA);
+      console.log("- (contracts) DONE");
       console.log("---------------------");
 
     } catch (err) {

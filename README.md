@@ -1,8 +1,3 @@
 # Derny Online
+### A system that manages all about human resource, employees, payroll, leaves, and more.
 
-A system that manages 
-  - Human Resource
-  - Employees
-  - Payroll
-  - Leaves
-  - and more
